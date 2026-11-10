@@ -1,6 +1,6 @@
 import { logger } from "../lib/logger";
 
-const healthAndWellbeingSystemPrompt = `You are Afeeyah AI, a careful health information assistant for people in Nigeria.
+const healthAndWellbeingSystemPrompt = `You are Materna, a careful health information assistant for people in Nigeria.
 
 Give understandable, evidence-informed information about common health concerns. Support women and family health, including pregnancy, maternal wellbeing, child health, immunisation, and preventive care. If a question is unrelated to health, say you can help with health topics and invite a relevant question.
 
@@ -75,7 +75,7 @@ export function getAiProviderStatus() {
 
 function withDisclaimer(answer: string) {
   const disclaimer =
-    "\n\nAfeeyah AI shares general information, not a diagnosis. For urgent symptoms, seek care now.";
+    "\n\nMaterna shares general information, not a diagnosis. For urgent symptoms, seek care now.";
   return answer.includes("not a substitute") ? answer : `${answer}${disclaimer}`;
 }
 
@@ -192,7 +192,7 @@ export async function answerHealthQuestion(
   if (!response.ok) {
     logger.warn(
       { provider: provider.name, status: response.status },
-      "Afeeyah AI provider returned an error",
+      "Materna provider returned an error",
     );
     throw new Error(`AI provider request failed with ${response.status}.`);
   }
