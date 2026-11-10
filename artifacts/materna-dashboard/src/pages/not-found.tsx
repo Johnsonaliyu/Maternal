@@ -11,7 +11,7 @@ export default function NotFound() {
           <h1 className="font-serif text-2xl text-foreground">Page not found</h1>
         </div>
         <p className="mt-5 text-sm leading-6 text-muted-foreground">
-          This operations page only has one live view. Return to the Afeeyah AI overview to check the health line.
+          This operations page only has one live view. Return to the Materna overview to check the health line.
         </p>
       </section>
     </div>
