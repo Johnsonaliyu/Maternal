@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Afeeyah AI"
+description = "Afeeyah AI health support operations dashboard for WhatsApp, with understandable health information, women and family health education, and guidance on when to seek care."
+version = "1.0.0"
+id = "artifacts/materna-dashboard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19587
+
+[services.development]
+run = "pnpm --filter @workspace/materna-dashboard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/materna-dashboard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/materna-dashboard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19587"
+BASE_PATH = "/"

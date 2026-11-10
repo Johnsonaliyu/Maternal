@@ -1,0 +1,16 @@
+.git
+.cache
+.local
+.agents
+node_modules
+**/node_modules
+**/dist
+**/.tsbuildinfo
+zipFile.zip
+.env
+.env.*
+**/.env
+**/.env.*
+artifacts/api-server/data/materna-auth
+artifacts/api-server/data/materna-auth/**
+artifacts/api-server/data/materna-sessions.json

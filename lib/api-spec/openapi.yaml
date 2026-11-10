@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: materna
+    description: Materna WhatsApp assistant operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /materna/status:
+    get:
+      operationId: getMaternaStatus
+      tags: [materna]
+      summary: Get Materna connection status
+      description: Returns WhatsApp pairing state, the current QR payload when pairing is needed, provider readiness, and session count.
+      responses:
+        "200":
+          description: Materna status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MaternaStatus"
+  /materna/whatsapp/reset:
+    post:
+      operationId: resetMaternaWhatsAppPairing
+      tags: [materna]
+      summary: Reset WhatsApp pairing
+      description: Clears the current WhatsApp auth session and starts a fresh QR pairing cycle.
+      responses:
+        "200":
+          description: Pairing reset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: "#/components/schemas/MaternaWhatsAppStatus"
+                required: [status]
+        "409":
+          description: Pairing reset already in progress
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    MaternaWhatsAppStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [not_started, connecting, qr_ready, connected, closed, error]
+        connected:
+          type: boolean
+        qr:
+          type: ["string", "null"]
+      required: [status, connected, qr]
+    MaternaAiStatus:
+      type: object
+      properties:
+        configured:
+          type: boolean
+        provider:
+          type: ["string", "null"]
+      required: [configured, provider]
+    MaternaPaystackStatus:
+      type: object
+      properties:
+        configured:
+          type: boolean
+      required: [configured]
+    MaternaStatus:
+      type: object
+      properties:
+        whatsapp:
+          $ref: "#/components/schemas/MaternaWhatsAppStatus"
+        ai:
+          $ref: "#/components/schemas/MaternaAiStatus"
+        paystack:
+          $ref: "#/components/schemas/MaternaPaystackStatus"
+        sessions:
+          type: integer
+          minimum: 0
+      required: [whatsapp, ai, paystack, sessions]
+

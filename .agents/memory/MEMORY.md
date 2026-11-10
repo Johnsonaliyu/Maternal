@@ -1,0 +1,3 @@
+- [Baileys runtime dependencies](baileys-runtime.md) — externalized Baileys builds need direct runtime dependencies declared in the API package.
+- [WhatsApp pairing reset](whatsapp-pairing-reset.md) — ignore stale Baileys socket events when clearing auth and reconnecting, or logout races can create duplicate QR sessions.
+- [GitHub connector availability](github-connection.md) — an attached integration may still be unavailable; verify current write access before pushing.
