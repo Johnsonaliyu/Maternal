@@ -47,6 +47,6 @@ app.listen(port, (err) => {
 
   logger.info({ port }, "Server listening");
   startWhatsApp().catch((error: unknown) => {
-    logger.error({ err: error }, "Afeeyah AI WhatsApp startup failed");
+    logger.error({ err: error }, "Materna WhatsApp startup failed");
   });
 });          
