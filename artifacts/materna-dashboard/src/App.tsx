@@ -67,7 +67,7 @@ function Home() {
               <AlertCircle size={26} aria-hidden="true" />
             </div>
             <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
-              Afeeyah AI operations
+              Materna operations
             </p>
             <h1 className="mt-3 font-serif text-3xl text-foreground">Status is taking a moment</h1>
             <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
@@ -148,7 +148,7 @@ function Home() {
                   Operator console / Lagos region
                 </div>
                 <h1 className="mt-4 font-serif text-[clamp(2.75rem,4vw,4.5rem)] leading-[0.96] tracking-[-0.045em] text-foreground">
-                  Afeeyah AI <span className="text-[hsl(var(--accent))]">health support.</span>
+                  Materna <span className="text-[hsl(var(--accent))]">health support.</span>
                 </h1>
                 <p className="mt-4 max-w-xl text-[15px] leading-7 text-muted-foreground">
                   A clear view of the WhatsApp health line and the support it provides to individuals and families.
@@ -193,7 +193,7 @@ function Home() {
             <section className="mt-6" aria-labelledby="support-scope-title">
               <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
                 <div>
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">How Afeeyah AI helps</p>
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">How Materna helps</p>
                   <h2 id="support-scope-title" className="mt-1 font-serif text-2xl tracking-[-0.025em]">Health support, made clear</h2>
                 </div>
               </div>
@@ -216,7 +216,7 @@ function Home() {
                     <h2 className="mt-3 font-serif text-3xl tracking-[-0.03em]">Connect the care line</h2>
                     <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
                       {whatsappConnected
-                        ? 'The Afeeyah AI number is paired and listening for new messages.'
+                        ? 'The Materna number is paired and listening for new messages.'
                         : 'Use your phone to scan the current code. It refreshes while you wait.'}
                     </p>
                   </div>
@@ -293,7 +293,7 @@ function Home() {
                     “Clear health information, with guidance on when to seek care.”
                   </p>
                   <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Afeeyah AI health line</span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Materna health line</span>
                     <button
                       type="button"
                       data-testid="button-refresh-status"
@@ -314,7 +314,7 @@ function Home() {
                 <ShieldCheck size={14} aria-hidden="true" />
                 Built for calm, reliable care operations.
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.14em]">Afeeyah AI / v1.0</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em]">Materna / v1.0</span>
             </footer>
           </div>
         </main>
@@ -325,13 +325,13 @@ function Home() {
 
 function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="flex items-center gap-3" data-testid="brand-afeeyah">
+    <div className="flex items-center gap-3" data-testid="brand-Materna">
       <div className="relative flex h-10 w-10 items-center justify-center rounded-[14px] bg-[hsl(var(--sidebar-primary))] text-sidebar-primary-foreground shadow-[0_8px_20px_hsl(14_72%_68%_/_0.18)]">
         <HeartPulse size={21} strokeWidth={2.2} aria-hidden="true" />
         <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-sidebar bg-[hsl(var(--chart-2))]" />
       </div>
       <div>
-        <div className={`font-serif text-xl leading-none tracking-[-0.03em] ${compact ? 'text-foreground' : 'text-sidebar-foreground'}`}>Afeeyah AI</div>
+        <div className={`font-serif text-xl leading-none tracking-[-0.03em] ${compact ? 'text-foreground' : 'text-sidebar-foreground'}`}>Materna</div>
         <div className={`mt-1 font-mono text-[8px] font-bold uppercase tracking-[0.2em] ${compact ? 'text-muted-foreground' : 'text-sidebar-foreground/45'}`}>health support</div>
       </div>
     </div>
@@ -420,7 +420,7 @@ function PairingState({ qr, status }: { qr: string | null; status: string }) {
       <div className="flex flex-col justify-center">
         <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Three quiet steps</p>
         <div className="mt-4 space-y-4">
-          <Instruction number="01" title="Open WhatsApp" detail="On the phone that will carry the Afeeyah AI number, open WhatsApp." />
+          <Instruction number="01" title="Open WhatsApp" detail="On the phone that will carry the Materna number, open WhatsApp." />
           <Instruction number="02" title="Go to Linked devices" detail="Choose Settings, then Linked devices, then Link a device." />
           <Instruction number="03" title="Scan this code" detail="Point the phone camera at the live code. Keep this window open." />
         </div>
@@ -511,7 +511,7 @@ function ConnectedState({
       </div>
       <h3 className="mt-8 font-serif text-3xl tracking-[-0.03em]">The line is listening.</h3>
       <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
-        WhatsApp is paired and Afeeyah AI is ready to respond to new health questions.
+        WhatsApp is paired and Materna is ready to respond to new health questions.
       </p>
       <div className="mt-7 flex flex-wrap justify-center gap-2">
         <span className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--secondary)/0.7)] px-3 py-2 text-xs font-bold text-[hsl(var(--chart-2))]">
