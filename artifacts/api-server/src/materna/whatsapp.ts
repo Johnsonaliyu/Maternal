@@ -54,7 +54,7 @@ async function connect() {
   const connectionSocket = makeWASocket({
     auth: state,
     printQRInTerminal: false,
-    browser: ["Afeeyah AI", "Chrome", "1.0.0"],
+    browser: ["Materna", "Chrome", "1.0.0"],
     logger,
   });
   socket = connectionSocket;
@@ -66,14 +66,14 @@ async function connect() {
     if (qr) {
       status = "qr_ready";
       latestQr = qr;
-      logger.info("Afeeyah AI WhatsApp QR ready; scan it with the WhatsApp number");
+      logger.info("Materna WhatsApp QR ready; scan it with the WhatsApp number");
       qrcode.generate(qr, { small: true });
     }
 
     if (connection === "open") {
       status = "connected";
       latestQr = null;
-      logger.info("Afeeyah AI WhatsApp connection opened");
+      logger.info("Materna WhatsApp connection opened");
     } else if (connection === "close") {
       status = "closed";
       latestQr = null;
@@ -90,7 +90,7 @@ async function connect() {
       const shouldReconnect = !replaced;
       logger.warn(
         { shouldReconnect, loggedOut, replaced, disconnectCode },
-        "Afeeyah AI WhatsApp connection closed",
+        "Materna WhatsApp connection closed",
       );
       if (shouldReconnect && !reconnecting) {
         reconnecting = true;
@@ -99,12 +99,12 @@ async function connect() {
             try {
               if (loggedOut) {
                 await rm(authDir, { recursive: true, force: true });
-                logger.info("Afeeyah AI WhatsApp auth cleared after logout; requesting a new QR");
+                logger.info("Materna WhatsApp auth cleared after logout; requesting a new QR");
               }
               await connect();
             } catch (error: unknown) {
               status = "error";
-              logger.error({ err: error }, "Afeeyah AI WhatsApp reconnect failed");
+              logger.error({ err: error }, "Materna WhatsApp reconnect failed");
             } finally {
               reconnecting = false;
             }
@@ -128,7 +128,7 @@ async function connect() {
           await socket?.presenceSubscribe(phoneNumber);
           await socket?.sendPresenceUpdate(presence, phoneNumber);
         } catch (error) {
-          logger.debug({ err: error, phoneNumber, presence }, "Afeeyah AI presence update failed");
+          logger.debug({ err: error, phoneNumber, presence }, "Materna presence update failed");
         }
       };
       try {
