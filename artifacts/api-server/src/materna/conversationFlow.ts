@@ -12,7 +12,7 @@ import {
 import { getOrCreateSession, saveSession } from "./sessionStore";
 import type { MaternaStatus, UserSession } from "./types";
 
-const consentNotice = `Before we continue, Afeeyah AI needs your consent to store:
+const consentNotice = `Before we continue, Materna needs your consent to store:
 • Your name
 • Your WhatsApp number
 • Chat history
@@ -86,7 +86,7 @@ export async function handleIncomingMessage(input: {
     await saveSession(session);
     await send(
       session,
-      "You have been opted out of Afeeyah AI messages. Reply YES any time to start again.",
+      "You have been opted out of Materna messages. Reply YES any time to start again.",
       input.sendMessage,
     );
     await saveSession(session);
@@ -174,8 +174,8 @@ export async function handleIncomingMessage(input: {
         });
         await send(session, `${answer}\n\nReply with another question, or send MENU to see your options again.`, input.sendMessage);
       } catch (error) {
-        logger.warn({ error }, "Afeeyah AI could not answer a health question");
-        await send(session, "Afeeyah AI is temporarily unable to answer. Please try again shortly, or contact a qualified clinician for medical advice.", input.sendMessage);
+        logger.warn({ error }, "Materna could not answer a health question");
+        await send(session, "Materna is temporarily unable to answer. Please try again shortly, or contact a qualified clinician for medical advice.", input.sendMessage);
       }
       break;
     }
@@ -297,7 +297,7 @@ export async function handleIncomingMessage(input: {
 export async function startConversation(phoneNumber: string, sendMessage: (text: string) => Promise<void>) {
   const session = await getOrCreateSession(phoneNumber);
   if (session.stage === "awaiting_name" && session.chatHistory.length === 0) {
-    await send(session, "Welcome to Afeeyah AI, your health information assistant.\n\nWhat name should I use for you?", sendMessage);
+    await send(session, "Welcome to Materna, your health information assistant.\n\nWhat name should I use for you?", sendMessage);
     await saveSession(session);
   }
   return session;
