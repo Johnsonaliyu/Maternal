@@ -38,6 +38,50 @@ function extractText(message: any): string | undefined {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Group chat handling: in groups the bot only replies when it is called.
+// Names that trigger the bot (comma-separated env var, case-insensitive).
+// ---------------------------------------------------------------------------
+const BOT_NAMES = (process.env.MATERNA_BOT_NAMES ?? "materna,afeeyah")
+  .split(",")
+  .map((n) => n.trim().toLowerCase())
+  .filter(Boolean);
+
+function isGroupJid(jid: string): boolean {
+  return jid.endsWith("@g.us");
+}
+
+function stripDevice(jid?: string | null): string | undefined {
+  // "2348012345678:12@s.whatsapp.net" -> "2348012345678"
+  return jid?.split("@")[0]?.split(":")[0];
+}
+
+function isBotMentioned(message: any, text: string, sock?: WASocket): boolean {
+  // 1) Bot name typed in the text (whole word, case-insensitive)
+  if (BOT_NAMES.some((name) => new RegExp(`\\b${name}\\b`, "i").test(text))) {
+    return true;
+  }
+
+  const ctx =
+    message.message?.extendedTextMessage?.contextInfo ??
+    message.message?.imageMessage?.contextInfo ??
+    message.message?.videoMessage?.contextInfo;
+
+  const myIds = [
+    stripDevice(sock?.user?.id),
+    stripDevice((sock?.user as any)?.lid),
+  ].filter(Boolean);
+
+  // 2) Real WhatsApp @mention of the bot's number
+  const mentioned: string[] = ctx?.mentionedJid ?? [];
+  if (mentioned.some((jid) => myIds.includes(stripDevice(jid)))) return true;
+
+  // 3) Someone replied directly to one of the bot's messages
+  if (myIds.includes(stripDevice(ctx?.participant))) return true;
+
+  return false;
+}
+
 export function getWhatsAppStatus() {
   return {
     status,
@@ -123,6 +167,14 @@ async function connect() {
       const text = extractText(message.message);
       if (!text) continue;
       const phoneNumber = message.key.remoteJid;
+
+      // In groups, stay silent unless the bot is named, @mentioned, or replied to.
+      // This runs before the "typing..." presence so the bot doesn't appear
+      // to be typing for messages it is ignoring.
+      if (isGroupJid(phoneNumber) && !isBotMentioned(message, text, socket)) {
+        continue;
+      }
+
       const sendPresence = async (presence: "composing" | "paused") => {
         try {
           await socket?.presenceSubscribe(phoneNumber);
@@ -264,4 +316,5 @@ export async function previewConversationStart(phoneNumber: string) {
     messages.push(message);
   });
   return messages;
-    }
+  }
+      
